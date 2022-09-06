@@ -1,5 +1,6 @@
 package sample;
 
+import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 import javafx.application.Application;
@@ -7,7 +8,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import com.fazecast.jSerialComm.SerialPort;
+
+
+import java.util.Arrays;
 import java.util.Timer;
 
 public class Main extends Application {
@@ -42,10 +45,15 @@ public class Main extends Application {
             @Override
             public void serialEvent(SerialPortEvent serialPortEvent) {
                     messages += new String(serialPortEvent.getReceivedData());
+                    int rpm = 0, ect = 0, lambda = 0, map = 0;
+                    String[] splitArray;
+
                     while (messages.contains("\n")) {
                         String[] message = messages.replaceAll("ECT: |    Lambda:|    MAP:|    RPM:", "").split("\\n", 2);
                         messages = (message.length > 1) ? message[1] : "";
-                        System.out.println( message[0]);
+                        //System.out.println(message[0]);
+                        String st = message[0];
+                        System.out.println(st);
                 }
             }
         });
